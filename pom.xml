@@ -25,20 +25,7 @@
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>5.9</version>
-            <exclusions>
-                <!-- Исключаем все старые версии beanutils -->
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Явно добавляем безопасную версию beanutils -->
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.11.0</version> <!-- Безопасная версия -->
+            <version>5.7.1</version>
         </dependency>
     </dependencies>
 
