@@ -5,29 +5,54 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import org.example.Entities.Department;
+import org.example.Entities.Person;
+import org.example.Enums.Gender;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class CsvReader {
     private static final char separator = ';';
-    public ArrayList<Person> read(String csvFilePath) throws IOException {
-        ArrayList<Person> list = new ArrayList<>();
-        // 1. Создаем парсер с указанием разделителя
+    private Person parsePerson(String[] line) {
+        Person person = new Person();
+        person.setID(Integer.parseInt(line[0]));
+        person.setName(line[1]);
+        switch (line[2]) {
+            case "Male": { person.setGender(Gender.Male); } break;
+            case "Female": { person.setGender(Gender.Female); } break;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.parse(line[3], formatter);
+        person.setBirthDate(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        person.setDepartment(new Department(line[4].charAt(0)));
+        person.setSalary(Double.parseDouble(line[5]));
+        return person;
+    }
+    public List<Person> read(String csvFilePath) throws IOException {
+        List<Person> list = new ArrayList<>();
+        // Создаем парсер с указанием разделителя
         CSVParser parser = new CSVParserBuilder()
                 .withSeparator(separator)
                 .build();
-        // 2. Открываем файл и создаем reader
+        // Открываем файл и создаем reader
         try (Reader reader = new InputStreamReader(
                 new FileInputStream(csvFilePath), StandardCharsets.UTF_8);
              CSVReader csvReader = new CSVReaderBuilder(reader)
                      .withCSVParser(parser)
                      .build()) {
-            // 3. Читаем файл построчно
+            // Читаем файл построчно
             String[] line;
-            while ((line = csvReader.readNext()) != null) {
-            }
+            // Пропускаем первую строку
+            line = csvReader.readNext();
+            while ((line = csvReader.readNext()) != null)
+                list.add(parsePerson(line));
         } catch (CsvValidationException e) {
             throw new IOException("Ошибка валидации CSV", e);
         }
