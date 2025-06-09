@@ -18,9 +18,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Класс для чтения людей из csv-файла.
+ */
 public class CsvReader {
     private static final char separator = ';';
-    private Person parsePerson(String[] line) {
+
+    /**
+     * Метод парсинга человека из массива строк.
+     * @param line строго определенного формата массив строк
+     * @return человек
+     */
+    public Person parsePerson(String[] line) {
         Person person = new Person();
         person.setID(Integer.parseInt(line[0]));
         person.setName(line[1]);
@@ -35,6 +44,13 @@ public class CsvReader {
         person.setSalary(Double.parseDouble(line[5]));
         return person;
     }
+
+    /**
+     * Метод, считывающий информацию о людях из файла и формирующий из них список.
+     * @param csvFilePath название файла
+     * @return список людей
+     * @throws IOException возникает, если не удается открыть указанный файл
+     */
     public List<Person> read(String csvFilePath) throws IOException {
         List<Person> list = new ArrayList<>();
         // Создаем парсер с указанием разделителя

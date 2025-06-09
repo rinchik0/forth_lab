@@ -1,0 +1,11 @@
+id;name;gender;BirtDate;Division;Salary
+1;Ariadna;Female;02.10.2004;A;15000
+2;Ellina;Female;26.01.2004;B;50000
+3;Dmitry;Male;30.08.2004;C;3000
+4;Michael;Male;23.09.2003;D;30000
+5;Makar;Male;16.05.2003;E;10000
+6;Daria;Female;15.09.2004;F;100
+7;Vladimir;Male;09.12.2000;J;120000
+8;Daniel;Male;24.09.2003;H;20000
+9;Yuri;Male;07.06.2002;I;1000
+10;Ekaterina;Female;29.01.2002;J;16000
